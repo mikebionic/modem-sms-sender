@@ -18,11 +18,11 @@ import (
 var version = "0.1"
 
 func send_sms(phone_number string, message_text string) error {
-
+	var err error
 	serial_port, err := get_serial_port_from_config()
 	if err != nil {
 		fmt.Println(err)
-		return
+		return err
 	}
 
 	dev := flag.String("d", serial_port, "path to modem device")
@@ -41,7 +41,7 @@ func send_sms(phone_number string, message_text string) error {
 	}
 	m, err := serial.New(serial.WithPort(*dev), serial.WithBaud(*baud))
 	if err != nil {
-		return
+		return err
 	}
 	var mio io.ReadWriter = m
 	if *hex {
@@ -55,16 +55,16 @@ func send_sms(phone_number string, message_text string) error {
 	}
 	g := gsm.New(at.New(mio, at.WithTimeout(*timeout)), gopts...)
 	if err = g.Init(); err != nil {
-		return
+		return err
 	}
 	if *pdumode {
 		sendPDU(g, *num, *msg)
-		return
+		return nil
 	}
 	mr, err := g.SendShortMessage(*num, *msg)
 	// !!! check CPIN?? on failure to determine root cause??  If ERROR 302
 	log.Printf("%v %v\n", mr, err)
-	return
+	return nil
 }
 
 func sendPDU(g *gsm.GSM, number string, msg string) {

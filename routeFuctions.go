@@ -2,12 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
-
-	"github.com/gorilla/mux"
 )
 
 type RequestData struct {
@@ -29,11 +25,11 @@ func (a *App) apiSendSMS(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	if token != sha_key {
+	if sms_request_data.Token != sha_key {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 	}
 
-	err := send_sms(sms_request_data.PhoneNumber, sms_request_data.MessageText)
+	err = send_sms(sms_request_data.PhoneNumber, sms_request_data.MessageText)
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
