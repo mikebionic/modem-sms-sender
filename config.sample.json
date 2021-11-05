@@ -1,0 +1,5 @@
+{
+	"serial_port": "/dev/ttyUSB3",
+	"sha_key": "secret_key",
+	"listen_address": "0.0.0.0:8000"
+}
