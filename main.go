@@ -15,11 +15,10 @@ type config struct {
 	ListenAddress string `json:"listen_address"`
 }
 
-
 func run() error {
 	var configFile string
 	var conf *config
-	
+
 	configFile = "config.json"
 	conf, err = ReadConfig(configFile)
 	if err != nil {

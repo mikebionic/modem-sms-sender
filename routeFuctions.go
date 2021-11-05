@@ -11,9 +11,9 @@ import (
 )
 
 type RequestData struct {
-	PhoneNumber   string   `json:"phone_number"`
+	PhoneNumber string `json:"phone_number"`
 	MessageText string `json:"message_text"`
-	Token string `json:"token"`
+	Token       string `json:"token"`
 }
 
 func (a *App) apiSendSMS(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,6 @@ func (a *App) apiSendSMS(w http.ResponseWriter, r *http.Request) {
 
 	var sms_request_data RequestData
 	json.Unmarshal(reqBody, &sms_request_data)
-
 
 	sha_key, err := get_sha_key_from_config()
 	if err != nil {

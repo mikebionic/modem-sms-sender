@@ -10,8 +10,8 @@ import (
 )
 
 type config struct {
-	Serial_port string `json:"serial_port"`
-	SHA_KEY     string `json:"sha_key"`
+	Serial_port   string `json:"serial_port"`
+	SHA_KEY       string `json:"sha_key"`
 	ListenAddress string `json:"listen_address"`
 }
 

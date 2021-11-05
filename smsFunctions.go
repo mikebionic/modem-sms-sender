@@ -17,7 +17,7 @@ import (
 
 var version = "0.1"
 
-func send_sms(phone_number string, message_text string)(error) {
+func send_sms(phone_number string, message_text string) error {
 
 	serial_port, err := get_serial_port_from_config()
 	if err != nil {
